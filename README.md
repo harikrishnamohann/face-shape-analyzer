@@ -1,5 +1,6 @@
 ```markdown
-# Face Shape Classifier – API with ML + fallback(Made with 💻 and ☕ by Lunarmist-byte)
+# Face Shape Classifier – API with ML + fallback
+(Made with 💻 and ☕ by Lunarmist-byte)
 
 Detects face shape from uploaded image. Uses trained ML model if available, else falls back to rule-based logic. Feedback support built-in. Auto retrains every 6 hours.
 
