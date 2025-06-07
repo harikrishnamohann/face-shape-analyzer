@@ -4,20 +4,20 @@
 
 Detects face shape from uploaded image. Uses trained ML model if available, else falls back to rule-based logic. Feedback support built-in. Auto retrains every 6 hours.
 
-**Note:** This project is currently untested.
+**Note:** This project is currently untested and untrained
 
 ---
 
 ## Stuff inside
 
 ```
-├── app.py                         # Main Flask backend
-├── facem.py                       # Face shape logic (landmarks, ratios, prediction)
-├── train_model.py                 # Retrains model using feedback.csv
-├── feedback.csv                   # Created when feedback is given
-├── shape_predictor_68_face_landmarks.dat  # Required by dlib
-├── face_shape_model.pkl           # Created after first train
-├── requirements.txt               # All deps here
+app.py                          # Main Flask backend  
+facem.py                        # Face shape logic (landmarks, ratios, prediction)  
+train_model.py                  # Retrains model using feedback.csv  
+feedback.csv                    # Created when feedback is given  
+shape_predictor_68_face_landmarks.dat   # Required by dlib  
+face_shape_model.pkl            # Created after training  
+requirements.txt                # All deps listed here  
 ```
 
 ---
