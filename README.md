@@ -1,4 +1,4 @@
-```markdown
+```
 # Face Shape Classifier – API with ML + fallback
 
 Detects face shape from uploaded image. Uses trained ML model if available, else rule-based logic. Feedback support + auto retraining every 6 hours.
