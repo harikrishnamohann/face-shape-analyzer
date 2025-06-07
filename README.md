@@ -1,42 +1,43 @@
-```
-# Face Shape Classifier – API with ML + fallback
+```markdown
+# Face Shape Classifier – API with ML + fallback(Made with 💻 and ☕ by Lunarmist-byte)
 
-Detects face shape from uploaded image. Uses trained ML model if available, else rule-based logic. Feedback support + auto retraining every 6 hours.
+Detects face shape from uploaded image. Uses trained ML model if available, else falls back to rule-based logic. Feedback support built-in. Auto retrains every 6 hours.
+
+**Note:** This project is currently untested.
 
 ---
 
 ## Stuff inside
 
 ```
-
-├── app.py                  # Main Flask backend
-├── facem.py                # Face shape logic
-├── train\_model.py          # Retrain model using feedback
-├── feedback.csv            # Gets created when feedback is given
-├── shape\_predictor\_68\_face\_landmarks.dat  # Required by dlib
-├── face\_shape\_model.pkl    # Gets created after training
-├── requirements.txt        # All dependencies
-
-````
+├── app.py                         # Main Flask backend
+├── facem.py                       # Face shape logic (landmarks, ratios, prediction)
+├── train_model.py                 # Retrains model using feedback.csv
+├── feedback.csv                   # Created when feedback is given
+├── shape_predictor_68_face_landmarks.dat  # Required by dlib
+├── face_shape_model.pkl           # Created after first train
+├── requirements.txt               # All deps here
+```
 
 ---
 
 ## Setup
 
 ### 1. Install dependencies
+
 ```bash
 pip install -r requirements.txt
-````
+```
 
-> If dlib gives you issues, make sure you have CMake and build tools installed.
+> If `dlib` gives errors, install CMake + build tools first (especially on Windows/Linux).
 
 ---
 
 ### 2. Put this in the root
 
-* `shape_predictor_68_face_landmarks.dat` (download from dlib’s GitHub or official source)
-* `feedback.csv` (gets auto created)
-* `face_shape_model.pkl` (optional, gets generated after feedback + retrain)
+* `shape_predictor_68_face_landmarks.dat` → Get from dlib's GitHub or official repo
+* `feedback.csv` → Will be created automatically when feedback is posted
+* `face_shape_model.pkl` → Optional. Gets generated after training
 
 ---
 
@@ -46,7 +47,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-App runs at `http://localhost:5000`. Scheduler runs in background to retrain every 6 hours.
+Runs on `http://localhost:5000`. Background scheduler will auto-retrain every 6 hours.
 
 ---
 
@@ -54,20 +55,24 @@ App runs at `http://localhost:5000`. Scheduler runs in background to retrain eve
 
 ### `POST /detect`
 
-Send an image file → returns face shape and metrics.
+Send an image → returns predicted face shape + measurements.
 
-**Form-Data**
+**Form-Data:**
 
-* `image`: your image file
+* `image`: image file (jpeg/png)
 
 **Response:**
 
 ```json
 {
   "face_shape": "Oval",
-  "jaw_width": ...,
-  "face_height": ...,
-  ...
+  "jaw_width": 130.2,
+  "cheekbone_width": 140.5,
+  "forehead_width": 125.0,
+  "face_height": 180.0,
+  "jaw_cheek_ratio": 0.92,
+  "face_cheek_ratio": 1.28,
+  "forehead_cheek_ratio": 0.89
 }
 ```
 
@@ -75,9 +80,9 @@ Send an image file → returns face shape and metrics.
 
 ### `POST /feedback`
 
-Send your correction.
+Submit feedback (correct label for misclassified image).
 
-**JSON**
+**JSON:**
 
 ```json
 {
@@ -90,28 +95,30 @@ Send your correction.
 
 ### `POST /admin/retrain`
 
-Force retraining. Optional, happens automatically every 6 hrs.
+Optional. Forces immediate retraining from feedback. (Usually done automatically every 6 hrs.)
 
 ---
 
 ### `GET /admin/status`
 
-Returns last retrain time and feedback count.
+Returns info like last retrain time and feedback count.
 
 ---
 
-## Retraining
+## Retraining Details
 
-Runs every 6 hours using `schedule`. Model gets reloaded live without restarting the app.
+* Background job runs every 6 hours (uses `schedule`)
+* After retrain, model is auto-reloaded (no need to restart server)
+* Needs at least 4 columns in `feedback.csv` to work (3 features + label)
 
 ---
 
 ## Notes
 
-* If no model, fallback to rule-based classification.
-* Needs clear frontal face, else it’ll skip.
-* All feedback is logged to `feedback.csv`.
-* Minimum 3 features + 1 label needed to train.
+* Falls back to rule-based logic if no model is available.
+* Requires a visible frontal face. If no face, skips.
+* Feedback is saved in `feedback.csv`
+* Model is saved as `face_shape_model.pkl` after training
 
 ---
 
@@ -119,7 +126,11 @@ Runs every 6 hours using `schedule`. Model gets reloaded live without restarting
 
 1. Install deps
 2. Run `python app.py`
-3. Hit `/detect` and `/feedback`
-4. It learns and improves
+3. Hit `/detect` with an image
+4. Send `/feedback` if prediction is wrong
+5. System improves itself, retrains every 6 hrs
 
+---
+
+Made with 💻 and ☕ by Lunarmist-byte
 ```
