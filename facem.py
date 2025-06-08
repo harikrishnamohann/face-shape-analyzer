@@ -3,15 +3,19 @@ import dlib
 import numpy as np
 import os
 import joblib
+import time
+
 detector=dlib.get_frontal_face_detector()
 model_path = os.path.join(os.path.dirname(__file__), 'shape_predictor_68_face_landmarks.dat')
 predictor = dlib.shape_predictor(model_path)
 #Loading ML model
 model_file=os.path.join(os.path.dirname(__file__), 'face_shape_model.pkl')
+last_loaded_time=0
+clf=None
 if os.path.exists(model_file):
-    clf=joblib.load(model_file)
+    clf=joblib.load(model_file) #load it first time
 else:
-    clf=None #rule based fallback
+    clf=None #rule based fallback if no model yet
 
 
 def shape_to_np(shape):#dlib to numpy
@@ -24,6 +28,7 @@ def euclidean_dist(p1,p2):#euclidean distance
     return np.linalg.norm(np.array(p1)-np.array(p2))
 
 def detect_face_shape(image_path):#detect face here
+    load_model_if_updated() #check if model updated
     image=cv2.imread(image_path)
     if image is None:
         return{"error":"image not good gng"}
@@ -37,10 +42,12 @@ def detect_face_shape(image_path):#detect face here
 
     features, raw_data =extract_features(landmarks)
     if clf:
-        pred=clf.predict([features])[0]
+        pred=clf.predict([features])[0] #ML prediction
         face_shape=pred
+        print("We using the ML BEEPIDI BOPIDI")
     else:
-        face_shape=rule_based_classify(*features)
+        face_shape=rule_based_classify(*features) #fallback to rules
+        print("WE USING THE RULE BASED ONE BUUUUUUUUU")
 
     raw_data["face_shape"]=face_shape
     return raw_data
@@ -68,7 +75,7 @@ def extract_features(landmarks):
     jaw_cheek_ratio=jaw_width/cheekbone_width if cheekbone_width else 0
     face_cheek_ratio=face_height/cheekbone_width if cheekbone_width else 0
     forehead_cheek_ratio=forehead_width/cheekbone_width if cheekbone_width else 0
-    #tolerance
+    #returning features for ML + raw values
     return [jaw_cheek_ratio,face_cheek_ratio,forehead_cheek_ratio],{
         "jaw_width": jaw_width,
         "cheekbone_width": cheekbone_width,
@@ -79,12 +86,14 @@ def extract_features(landmarks):
         "forehead_cheek_ratio": forehead_cheek_ratio,
 
     }
+
 def rule_based_classify(jaw_cheek_ratio, face_cheek_ratio, forehead_cheek_ratio):
-    tolerance = 0.1
+    tolerance = 0.1 #how strict are we with "equal"
 
     def approx_equal(a,b):
         return abs(a-b)/max(a,b) < tolerance
 
+    # basic logic using facial ratios
     if forehead_cheek_ratio>1+tolerance and jaw_cheek_ratio<1-tolerance:
         return "Heart"
     elif face_cheek_ratio>1.3 and approx_equal(jaw_cheek_ratio,1) and approx_equal(forehead_cheek_ratio,1):
@@ -97,3 +106,12 @@ def rule_based_classify(jaw_cheek_ratio, face_cheek_ratio, forehead_cheek_ratio)
         return "Square"
     else:
         return "Unknown"
+
+def load_model_if_updated():
+    global clf,last_loaded_time
+    if os.path.exists(model_file): #check model file
+        mtime=os.path.getmtime(model_file)
+        if mtime!=last_loaded_time:
+            clf=joblib.load(model_file) #reload updated model
+            last_loaded_time=mtime
+            print("uPDATED FRESHH AHH") #chad print
