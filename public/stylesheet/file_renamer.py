@@ -3,7 +3,7 @@ import os
 # Specify the starting directory for traversal
 # You can use '.' for the current working directory
 # or a specific path like '/path/to/your/directory'
-start_directory = '/home/a_swi_nrd/Project/face-shape-analyzer/public/stylesheet/inventory0'
+start_directory = '/home/hk/create/web/face-shape-analyzer/public/stylesheet/inventory0'
 
 for dirpath, dirnames, filenames in os.walk(start_directory):
     # dirpath: The current directory being walked
