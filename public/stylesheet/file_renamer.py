@@ -15,9 +15,6 @@ for dirpath, dirnames, filenames in os.walk(start_directory):
         n = 0
         f = []
         for i in filenames:
-            file = i.split(".")
-            if file[-1] != "jpg" :
-                os.system(f"mv \"{dirpath}/{i}\" \"{dirpath}/{file[0]}.jpg\"")
             fn = dirpath.split("/")[-1]
             if not(i.startswith(fn)):
                 f.append(i)
@@ -25,9 +22,11 @@ for dirpath, dirnames, filenames in os.walk(start_directory):
         
         fi = 0
         for i in filenames:
-            if not(os.path.exists(f"{dirpath}/{fn}_{n}.jpg")) :
-                print(f"modified \"{f[fi]}\" to \"{fn}_{n}.jpg\"")
-                os.system(f"mv \"{dirpath}/{f[fi]}\" \"{dirpath}/{fn}_{n}.jpg\"")
+            if not(os.path.exists(f"{dirpath}/{fn}_{n}.jpg")) and not(os.path.exists(f"{dirpath}/{fn}_{n}.png")) :
+                print(f[fi])
+                file = f[fi].split(".")
+                print(f"modified \"{f[fi]}\" to \"{fn}_{n}.{file[-1]}\"")
+                os.system(f"mv \"{dirpath}/{f[fi]}\" \"{dirpath}/{fn}_{n}.{file[-1]}\"")
                 fi += 1
                 if fi >= len(f):
                     break
