@@ -9,9 +9,9 @@ do
 	then
 		STYLE_DIR=$(echo $file | cut -d'/' -f3)
 		FILE_NAME=$(echo $file | cut -d '/' -f4 | cut -d '.' -f1)
-		
+
 		mkdir -p "$DEST/$STYLE_DIR"
-		magick "$file" "$DEST/$STYLE_DIR/$FILE_NAME.jpg"
+		magick -quality 100 +compress "$file" "$DEST/$STYLE_DIR/$FILE_NAME.jpg"
 	fi
-	
+
 done
