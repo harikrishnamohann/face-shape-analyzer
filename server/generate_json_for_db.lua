@@ -1,8 +1,10 @@
 #! /usr/bin/env lua
 
-local mime = require "mime"
-local lfs = require "lfs"
-local json = require("dkjson")
+-- to run this lua script,
+-- install luarocks and install the following libraries first.
+local mime = require "mime" -- I didn't have to install this
+local lfs = require "lfs" -- sudo luarocks install luafilesystem
+local json = require "dkjson" -- sudo luarocks install dkjson
 
 local root = "./stylesheet"
 local shapes = {"oval", "round", "oblong", "triangle", "square", "diamond", "heart"}
