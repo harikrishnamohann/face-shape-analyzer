@@ -1,5 +1,8 @@
 #! /usr/bin/env lua
 
+-- usage: ./generate_json_for_db.lua [stylesheet|hairstyles]
+-- or just ./generate_json_for_db.lua to generate both json files
+
 -- to run this lua script,
 -- install luarocks and install the following libraries first.
 local mime = require "mime" -- I didn't have to install this
@@ -40,61 +43,77 @@ local function list_directory(dir)
   return contents
 end
 
+local function generate_stylesheet_json()
+  local style_sheet = {}
+  for i, shape_name in ipairs(shapes) do
+    local shape_path = root .. "/" .. shape_name
+    local hairstyles_list = {}
 
+    for j, style_name in ipairs(list_directory(shape_path)) do
+      hairstyles_list[j] = style_name
+    end
 
--- this block generates the stylesheet
-local style_sheet = {}
-for i, shape_name in ipairs(shapes) do
-  local shape_path = root .. "/" .. shape_name
-  local hairstyles_list = {}
-
-  for j, style_name in ipairs(list_directory(shape_path)) do
-    hairstyles_list[j] = style_name
+    style_sheet[i] = {
+      shape = shape_name,
+      description = shape_desc[shape_name],
+      hairstyles = hairstyles_list
+    }
   end
 
-  style_sheet[i] = {
-    shape = shape_name,
-    description = shape_desc[shape_name],
-    hairstyles = hairstyles_list
-  }
+  local style_sheet_json = json.encode(style_sheet, { indent = true })
+  local file, err= io.open("stylesheet.json", "w")
+  if file then
+    file:write(style_sheet_json)
+    file:close()
+  else
+    print("file opening error: " .. err)
+  end
 end
 
-local style_sheet_json = json.encode(style_sheet, { indent = true })
+local function generate_hairstyles_json() 
+  local inventory = root .. "/inventory"
 
-local file, err= io.open("stylesheet.json", "w")
-if file then
-  file:write(style_sheet_json)
-  file:close()
-else
-  print("file opening error: " .. err)
-end
+  local hairstyles = {}
+  for i, hairstyle_name in ipairs(list_directory(inventory)) do
+    local hairstyle_path = inventory .. "/" .. hairstyle_name
 
+    local images = {}
+    for j, image in ipairs(list_directory(hairstyle_path)) do
+      local image_path = hairstyle_path .. "/" .. image
+      images[j] = read_file_as_base64(image_path)
+    end
 
-
--- this block generates json file containing base64 encoded images
-local inventory = root .. "/inventory"
-
-local hairstyles = {}
-for i, hairstyle_name in ipairs(list_directory(inventory)) do
-  local hairstyle_path = inventory .. "/" .. hairstyle_name
-
-  local images = {}
-  for j, image in ipairs(list_directory(hairstyle_path)) do
-    local image_path = hairstyle_path .. "/" .. image
-    images[j] = read_file_as_base64(image_path)
+    hairstyles[i] = {
+      name = hairstyle_name,
+      images = images,
+    }
   end
 
-  hairstyles[i] = {
-    name = hairstyle_name,
-    images = images,
-  }
+  local hairstyles_json = json.encode(hairstyles, { indent = true })
+  local file, err = io.open("hairstyles.json", "w")
+  if file then
+    file:write(hairstyles_json)
+    file:close()
+  else
+    print("error opening file: " .. err)
+  end
 end
 
-local hairstyles_json = json.encode(hairstyles, { indent = true })
-file, err = io.open("hairstyles.json", "w")
-if file then
-  file:write(hairstyles_json)
-  file:close()
+
+
+if #arg == 1 then
+  if arg[1]:match("stylesheet") then
+    generate_stylesheet_json()
+    print("stylesheet.json ✔")
+  elseif arg[1]:match("hairstyles") then
+    generate_hairstyles_json()
+    print("hairstyles.json ✔")
+  else
+    print("invalid argument")
+  end
 else
-  print("error opening file: " .. err)
+  generate_stylesheet_json()
+  print("stylesheet.json ✔")
+  generate_hairstyles_json()
+  print("hairstyles.json ✔")
 end
