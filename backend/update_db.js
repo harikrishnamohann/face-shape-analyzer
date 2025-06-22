@@ -9,7 +9,7 @@ import { connectToDb, getDb, closeDb } from "./connect.js";
 await connectToDb();
 const db = getDb();
 
-async function WriteToDb(data, collectionName) {
+async function writeToDb(data, collectionName) {
   try {
     const collection = db.collection(collectionName);
     await collection.insertMany(data);
@@ -18,34 +18,41 @@ async function WriteToDb(data, collectionName) {
   }
 }
 
-async function generate_json(file_name = "") {
-  try {
-    const execAsync = promisify(exec);
-    await execAsync(`./generate_json_for_db.lua ${file_name}`)
-  } catch (err) {
-    console.error("lua script execution failed:", err);
-    process.exit(1);
-  }
+function generateJsonAsync(file_name = "") {
+  return new Promise((resolve, reject) => {
+    exec(`./generate_json_for_db.lua ${file_name}`, (error, stdout, stderr) => {
+      if (error) {
+        console.error("Error executing Lua script:", error);
+        process.exit(1);
+      } else if (stderr) {
+        console.error("Lua script stderr:", stderr);
+        process.exit(1);
+      } else {
+        console.log(stdout);
+        resolve();
+      }
+    });
+  });
 }
 
 if (process.argv.length === 3 && process.argv.includes("stylesheet")) {
-  await generate_json("stylesheet.json");
+  await generateJsonAsync("stylesheet.json");
   const StyleSheet = JSON.parse(fs.readFileSync("./stylesheet.json", "utf-8"));
   console.log("writing stylesheet collection to db...");
-  await WriteToDb(StyleSheet, "stylesheet")
+  await writeToDb(StyleSheet, "stylesheet")
 } else if (process.argv.length === 3 && process.argv.includes("hairstyles")) {
-  await generate_json("hairstyles.json");
+  await generateJsonAsync("hairstyles.json");
   const hairstyles = JSON.parse(fs.readFileSync("./hairstyles.json", "utf-8"));
   console.log("writing hairstyles collection to db...");
-  await WriteToDb(hairstyles, "hairstyles")
+  await writeToDb(hairstyles, "hairstyles")
 } else {
-  await generate_json();
+  await generateJsonAsync();
   const StyleSheet = JSON.parse(fs.readFileSync("./stylesheet.json", "utf-8"));
   const hairstyles = JSON.parse(fs.readFileSync("./hairstyles.json", "utf-8"));
   console.log("writing stylesheet collection to db...");
-  await WriteToDb(StyleSheet, "stylesheet")
+  await writeToDb(StyleSheet, "stylesheet")
   console.log("writing hairstyles collection to db...");
-  await WriteToDb(hairstyles, "hairstyles")
+  await writeToDb(hairstyles, "hairstyles")
 }
 
 await closeDb();
