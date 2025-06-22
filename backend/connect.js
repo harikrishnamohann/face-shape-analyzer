@@ -1,14 +1,13 @@
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
-
-dotenv.config({ path: "./config.env" });
+dotenv.config();
 
 const Client = new MongoClient(process.env.ATLAS_URI);
 let DataBase; 
 
 
 export async function connectToDb() {
-  DataBase = Client.db("hair-style-analyzer");
+  DataBase = Client.db(process.env.DB_NAME);
 }
 
 export function getDb() {
