@@ -5,7 +5,7 @@
 
 @font-face {
     font-family: "PixelifySansBold";
-    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf");
+    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Bold.ttf");
 }
 
 @font-face {
@@ -34,13 +34,26 @@ body {
 
 button {
     background-color: white;
-    padding: 1ch;
+    padding: 1ch 2ch;
+    font-family: "PixelifySansMedium", sans-serif;
+    font-size: 1.2rem;
+    color: #4f7736
+}
+
+button:hover {
+    background-color: #f1f0e1;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #e0e0d1;
+    border-radius: 7px;
 }
 
 .stylize {
     border: 2px solid #34612e;
     border-radius: 4px;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
 }
 
 section {

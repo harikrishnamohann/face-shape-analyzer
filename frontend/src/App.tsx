@@ -26,14 +26,16 @@ function LanderPage(): JSX.Element {
           className="salonIllustration"
           src="src/assets/images/salon_scene.png"
         />
-        <div className="conversationBubble">What hair style do you want?</div>
-        <div className="confused">?!</div>
+        <div className="conversationBubble stylize">
+          <p>⏵ Salon :: What hair cut do you want?</p>
+          <p>⏵ Me :: Huh?... well... ?!?!?!</p>
+        </div>
       </div>
-      <h1 className="Logo">Style Me &lt;/&gt; </h1>
+      <h1 className="logo">Style Me &lt;/&gt; </h1>
       <p className="slogan">
-        Discover the perfect hairstyle for your face shape
+        Still confused to choose a hairstyle? Let's fix it!
       </p>
-      <button className="stylize">Explore</button>
+      <button className="stylize">Explore !</button>
     </section>
   );
 }
