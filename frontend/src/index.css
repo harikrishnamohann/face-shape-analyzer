@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "PixelifySansRegular";
+    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "PixelifySansBold";
+    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "PixelifySansSemiBold";
+    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "PixelifySansMedium";
+    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Medium.ttf");
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    padding: 0ch 1ch;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-family: "PixelifySansRegular", sans-serif;
+}
+
+button {
+    background-color: white;
+    padding: 1ch;
+}
+
+.stylize {
+    border: 2px solid #34612e;
+    border-radius: 4px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.6);
+}
+
+section {
+    background-color: #ebf3e4;
+    max-width: 80ch;
+    height: 94vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
