@@ -1,7 +1,11 @@
 import { NavBar, type NavBarProps } from "./navBar";
 import { type JSX, useEffect, useState } from "react";
 
-function CatalogMenu(): JSX.Element {
+function CatalogMenu({
+  pos = [0, 0],
+}: {
+  pos?: [number, number];
+}): JSX.Element {
   const [item, setItem] = useState<string>("/#");
   const items: string[] = [
     "Heart",
@@ -19,22 +23,26 @@ function CatalogMenu(): JSX.Element {
     }
   }, [item]);
   return (
-    <menu className="catalogMenu">
+    <menu
+      style={{ left: `${pos[0] - 40}px`, top: `${pos[1] + 16}px` }}
+      className="catalogMenu stylize"
+    >
       {items.map((itemName) => (
-        <div key={itemName} onClick={() => setItem(`${itemName}`)}>
+        <li
+          className="menuItem"
+          key={itemName}
+          onClick={() => setItem(`${itemName}`)}
+        >
           {itemName}
-        </div>
+        </li>
       ))}
     </menu>
   );
 }
 
 export default function LanderPage(): JSX.Element {
-  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(`Menu is now ${isMenuOpen ? "open" : "closed"}`);
-  }, [isMenuOpen]);
+  const [isCatalogMenuOpen, setIsCatalogMenuOpen] = useState<boolean>(false);
+  const [menuPosition, setMenuPosition] = useState<[number, number]>([0, 0]);
 
   const navBar: NavBarProps = {
     leftBox: [
@@ -48,10 +56,14 @@ export default function LanderPage(): JSX.Element {
     ],
     rightBox: [
       {
-        component: <a key="catalog">Catalog</a>,
+        component: (
+          <a key="catalog" href="#">
+            Catalog
+          </a>
+        ),
         stateHooks: {
-          isState: isMenuOpen,
-          setIsState: setIsMenuOpen,
+          isState: isCatalogMenuOpen,
+          setIsState: setIsCatalogMenuOpen,
         },
       },
       {
@@ -60,21 +72,26 @@ export default function LanderPage(): JSX.Element {
             About
           </a>
         ),
-        stateHooks: {
-          isState: isMenuOpen,
-          setIsState: setIsMenuOpen,
-        },
       },
     ],
   };
+
   return (
-    <section className="landerPage stylize">
+    <section
+      className="landerPage stylize"
+      onClick={(event) => {
+        isCatalogMenuOpen &&
+          (event.target as HTMLElement).className !== "menuItem" &&
+          setIsCatalogMenuOpen(false);
+        !isCatalogMenuOpen && setMenuPosition([event.clientX, event.clientY]);
+      }}
+    >
       <NavBar
         leftBox={navBar.leftBox}
         middleBox={navBar.middleBox}
         rightBox={navBar.rightBox}
       />
-      {isMenuOpen && <CatalogMenu />}
+      {isCatalogMenuOpen && <CatalogMenu pos={menuPosition} />}
       <div className="content">
         <div className="logoContainer">
           <h1 className="logo">Style Me &lt;/&gt; </h1>

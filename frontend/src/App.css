@@ -58,18 +58,32 @@
     text-align: center;
 }
 
-.landerPage button {
+.landerPage > .content button {
     margin-top: 3ch;
 }
 
-a {
-    color: #759971;
+.landerPage > .catalogMenu {
+    position: fixed;
+    background-color: #f1f0e1;
+    /* right: 4ch; */
+    /* top: 8ch; */
+    width: 10ch;
+    height: 18ch;
+    overflow: auto;
+    text-align: center;
 }
 
-a:hover {
-    color: #466632;
+.landerPage > .catalogMenu li {
+    padding: 0.5ch;
+    border-bottom: 1px solid #608649;
+    color: #34612E;
+    cursor: pointer;
 }
 
-a:active {
-    color: #162410;
+.landerPage > .catalogMenu li:hover {
+    background-color: #e0e0d1;
+}
+
+.landerPage > .catalogMenu li:active {
+    background-color: #f1f1e8;
 }

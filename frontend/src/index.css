@@ -88,3 +88,15 @@ section {
     font-family: "PixelifySansBold", sans-serif;
     color: rgba(52,87,46, 0.2);
 }
+
+a {
+    color: #759971;
+}
+
+a:hover {
+    color: #466632;
+}
+
+a:active {
+    color: #162410;
+}
