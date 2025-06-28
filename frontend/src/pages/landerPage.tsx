@@ -1,104 +1,78 @@
-import { NavBar, type NavBarProps } from "./navBar";
-import { type JSX, useEffect, useState } from "react";
+import { type NavBarProps, NavBar } from "./components/navBar";
+import { Menu } from "./components/menu";
+import { type JSX, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./stylesheets/landerPage.css";
 
-function CatalogMenu({
-  pos = [0, 0],
-}: {
-  pos?: [number, number];
-}): JSX.Element {
-  const [item, setItem] = useState<string>("/#");
-  const items: string[] = [
-    "Heart",
+export default function LanderPage(): JSX.Element {
+  const navigate: ReturnType<typeof useNavigate> = useNavigate();
+  const [isMenuShow, setIsMenuShow] = useState<boolean>(false);
+  const [menuPosition, setMenuPosition] = useState<[number, number]>([0, 0]);
+  const menuItems: string[] = [
     "Oval",
-    "Square",
     "Round",
+    "Square",
+    "Heart",
     "Triangle",
     "Diamond",
     "Oblong",
   ];
 
-  useEffect(() => {
-    if (item !== "/#") {
-      console.log(`Selected item: ${item}`); // for later
-    }
-  }, [item]);
-  return (
-    <menu
-      style={{ left: `${pos[0] - 40}px`, top: `${pos[1] + 16}px` }}
-      className="catalogMenu stylize"
-    >
-      {items.map((itemName) => (
-        <li
-          className="menuItem"
-          key={itemName}
-          onClick={() => setItem(`${itemName}`)}
-        >
-          {itemName}
-        </li>
-      ))}
-    </menu>
-  );
-}
-
-export default function LanderPage(): JSX.Element {
-  const [isCatalogMenuOpen, setIsCatalogMenuOpen] = useState<boolean>(false);
-  const [menuPosition, setMenuPosition] = useState<[number, number]>([0, 0]);
-
-  const navBar: NavBarProps = {
-    leftBox: [
-      {
-        component: (
-          <p key="logo" className="topLogo">
-            Style Me
-          </p>
-        ),
+  const navBarContent: NavBarProps[] = [
+    {
+      component: (
+        <a key="catalog" href="#">
+          Catalog
+        </a>
+      ),
+      stateHooks: {
+        isState: isMenuShow,
+        setIsState: setIsMenuShow,
       },
-    ],
-    rightBox: [
-      {
-        component: (
-          <a key="catalog" href="#">
-            Catalog
-          </a>
-        ),
-        stateHooks: {
-          isState: isCatalogMenuOpen,
-          setIsState: setIsCatalogMenuOpen,
-        },
-      },
-      {
-        component: (
-          <a key="about" href="#">
-            About
-          </a>
-        ),
-      },
-    ],
-  };
+    },
+    {
+      component: (
+        <a key="about" href="#">
+          About
+        </a>
+      ),
+    },
+  ];
 
+  function handleMenuItemClick(item: string): void {
+    console.log(`Selected : ${item}`);
+  }
+
+  function updateMenu(event: React.MouseEvent<HTMLElement, MouseEvent>): void {
+    isMenuShow &&
+      (event.target as HTMLElement).className !== "menuItem" &&
+      setIsMenuShow(false);
+    !isMenuShow && setMenuPosition([event.clientX, event.clientY]);
+  }
   return (
     <section
       className="landerPage stylize"
-      onClick={(event) => {
-        isCatalogMenuOpen &&
-          (event.target as HTMLElement).className !== "menuItem" &&
-          setIsCatalogMenuOpen(false);
-        !isCatalogMenuOpen && setMenuPosition([event.clientX, event.clientY]);
-      }}
+      onClick={(event) => updateMenu(event)}
     >
-      <NavBar
-        leftBox={navBar.leftBox}
-        middleBox={navBar.middleBox}
-        rightBox={navBar.rightBox}
-      />
-      {isCatalogMenuOpen && <CatalogMenu pos={menuPosition} />}
+      {isMenuShow && (
+        <Menu
+          props={{
+            position: menuPosition,
+            menuItems: menuItems,
+            handleItemClick: handleMenuItemClick,
+          }}
+        />
+      )}
+      <NavBar items={navBarContent} />
       <div className="content">
         <div className="logoContainer">
           <h1 className="logo">Style Me &lt;/&gt; </h1>
           <p className="slogan">
             Still confused to choose a hairstyle? Let's find out!
           </p>
-          <button className="stylize">Explore !</button>
+          <button className="stylize" onClick={() => navigate("/measurements")}>
+            Explore !
+          </button>
         </div>
         <div className="illustrationContainer">
           <img

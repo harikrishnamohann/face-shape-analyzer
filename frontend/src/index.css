@@ -55,11 +55,6 @@ button:active {
     border-radius: 8px;
 }
 
-.stylize {
-    border: 2px solid rgb(52, 97, 46);
-    border-radius: 4px;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
-}
 
 section {
     background-color: #ffffff;
@@ -67,26 +62,6 @@ section {
     flex-direction: column;
     align-items: center;
     min-width: 320px;
-}
-
-.navBar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1ch;
-}
-
-.navBox {
-    display: flex;
-    align-items: center;
-    gap: 1ch;
-}
-
-.topLogo {
-    font-size: 1.3rem;
-    font-family: "PixelifySansBold", sans-serif;
-    color: rgba(52,87,46, 0.2);
 }
 
 a {
