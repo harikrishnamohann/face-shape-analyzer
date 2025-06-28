@@ -62,4 +62,8 @@ section {
     flex-direction: column;
     align-items: center;
     min-width: 320px;
+    max-width: 120ch;
+    width: 97vw;
+    height: 97vh;
+    overflow: auto;;
 }

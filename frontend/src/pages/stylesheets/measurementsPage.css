@@ -1,0 +1,118 @@
+.measurementsPage {
+    padding: 2ch;
+}
+
+.measurementsPage > .content {
+    padding-top: 2ch;
+    max-width: 80ch;
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+}
+
+.measurementsPage .title {
+    color: #34612E;
+    font-size: 1.8rem;
+    font-family: "PixelifySansSemiBold", sans-serif;
+    text-decoration: underline;
+}
+
+.measurementsPage > .content .title + p {
+    color: #608649;
+    font-size: 1.1rem;
+}
+
+.measurementsPage .querySection {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 3ch 0;
+    gap: 1ch;
+}
+
+@media (min-width: 60ch) {
+    .measurementsPage .querySection {
+        margin: 8ch 0;
+    }
+}
+
+.measurementsPage .querySection .queryBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1ch;
+    padding: 2ch;
+    background-color: #f7f6ec;
+    color: #34612E;
+}
+.measurementsPage .querySection .queryBox > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1ch;
+}
+
+.measurementsPage .querySection .queryBox > ul > li {
+    margin-left: 1ch;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+.measurementsPage .querySection .queryBox input {
+    width: 6.2ch;
+    padding: 1ch;
+    font-size: 1rem;
+    margin-left: 1ch;
+    border-radius: 4px;
+    border: 1px solid #608649;
+    font-family: "PixelifySansRegular", sans-serif;
+    color: #34612E; 
+}
+
+#Forehead {
+    position: relative;
+    left: 1ch;
+}
+
+#Jawline {
+    position: relative;
+    left: 2.8ch;
+}
+
+#Chin {
+    position: relative;
+    left: 5.5ch;
+}
+
+.measurementsPage .querySection .errMsg {
+    color: #d84141;
+    max-width: 18ch;
+    font-size: 0.9rem;
+}
+
+.measurementsPage .querySection .demoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1ch;;
+    color: #34612E;
+}
+
+.measurementsPage .querySection .demoContainer img {
+    background-color: #f7f6ec;
+    max-width: 17ch;
+}
+
+.measurementsPage button {
+    width: 12ch;
+}

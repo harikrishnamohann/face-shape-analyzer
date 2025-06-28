@@ -1,14 +1,15 @@
 import { useEffect, useState, type JSX } from "react";
 import { NavBar, type NavBarProps } from "./components/navBar";
 import { useNavigate } from "react-router-dom";
+import "./stylesheets/measurementsPage.css";
 
-type computeModeType = "calc" | "ml";
+type computeModeType = "query" | "image";
 
 export default function measurementsPage(): JSX.Element {
-  const [computeMode, setComputeMode] = useState<computeModeType>("calc");
+  const [computeMode, setComputeMode] = useState<computeModeType>("query");
   const navigate: ReturnType<typeof useNavigate> = useNavigate();
   useEffect(() => {
-    if (computeMode === "ml") navigate("/ml");
+    if (computeMode === "image") navigate("/ml");
   }, [computeMode]);
   const navBarContent: NavBarProps[] = [
     {
@@ -18,69 +19,61 @@ export default function measurementsPage(): JSX.Element {
         </div>
       ),
       stateHooks: {
-        isState: computeMode === "calc",
+        isState: computeMode === "query",
         setIsState: (value: boolean) => {
-          setComputeMode(value ? "calc" : "ml");
+          setComputeMode(value ? "query" : "image");
         },
       },
     },
   ];
+
+  const queryItems = ["Forehead", "Cheekbone", "Jawline", "Chin"];
+
   return (
-    <section className="stylize">
+    <section className="stylize measurementsPage">
       <NavBar items={navBarContent} />
       <div className="content">
-        <h1>Ready to measure your face?</h1>
+        <h1 className="title">Let's to measure your face</h1>
         <p>
           Grab a piece of string and a ruler (or measuring tape) to measure
           these face dimensions in centimeters, then fill in your results below.
           Take your time for accuracy - measuring twice is always a smart idea!
         </p>
-        <div className="querySection stylize">
-          <div className="queryBox">
-            <h4>
-              <u>your facial lengths</u>
-            </h4>
-            <div className="query">
-              <label htmlFor="forehead">Forehead </label>
-              <input
-                type="number"
-                id="forehead"
-                name="forehead"
-                placeholder="in cm"
-              />
-            </div>
-            <div className="query">
-              <label htmlFor="cheekbone">Cheekbone </label>
-              <input
-                type="number"
-                id="cheekbone"
-                name="cheekbone"
-                placeholder="in cm"
-              />
-            </div>
-            <div className="query">
-              <label htmlFor="jawline">Jawline </label>
-              <input
-                type="number"
-                id="jawline"
-                name="jawline"
-                placeholder="in cm"
-              />
-            </div>
-            <div className="query">
-              <label htmlFor="chin">Chin </label>
-              <input type="number" id="chin" name="chin" placeholder="in cm" />
-            </div>
+        <div className="querySection">
+          <div className="queryBox stylize">
+            <h3>your facial data</h3>
+            <ul>
+              {queryItems.map((item) => (
+                <li key={item.toLowerCase()}>
+                  <label htmlFor={item.toLowerCase()}>{item} </label>
+                  <input
+                    onInput={(event) => {
+                      const target = event.target as HTMLInputElement;
+                      console.log(`Input for ${item}:`, target.value);
+                    }}
+                    type="number"
+                    id={item}
+                    name={item}
+                    placeholder="in cm"
+                  />
+                </li>
+              ))}
+            </ul>
+            <p className="errMsg">
+              input error: only numerical values are allowed
+            </p>
           </div>
           <div className="demoContainer">
             <img
+              className="stylize"
               src="/src/assets/demos/forehead_demo.gif"
               alt="forehead_demo.gif"
             />
+            <p>Forehead demo</p>
           </div>
         </div>
-        <button>Go!</button>
       </div>
+      <button className="stylize">Go!</button>
     </section>
   );
 }
