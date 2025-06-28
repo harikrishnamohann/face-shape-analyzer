@@ -63,15 +63,3 @@ section {
     align-items: center;
     min-width: 320px;
 }
-
-a {
-    color: #759971;
-}
-
-a:hover {
-    color: #466632;
-}
-
-a:active {
-    color: #162410;
-}

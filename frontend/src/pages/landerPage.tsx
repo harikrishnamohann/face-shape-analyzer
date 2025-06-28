@@ -21,9 +21,9 @@ export default function LanderPage(): JSX.Element {
   const navBarContent: NavBarProps[] = [
     {
       component: (
-        <a key="catalog" href="#">
+        <div className="navBarItem" key="catalog">
           Catalog
-        </a>
+        </div>
       ),
       stateHooks: {
         isState: isMenuShow,
@@ -32,15 +32,15 @@ export default function LanderPage(): JSX.Element {
     },
     {
       component: (
-        <a key="about" href="#">
+        <div className="navBarItem" key="about">
           About
-        </a>
+        </div>
       ),
     },
   ];
 
   function handleMenuItemClick(item: string): void {
-    console.log(`Selected : ${item}`);
+    navigate(`/shapes/${item.toLowerCase()}`);
   }
 
   function updateMenu(event: React.MouseEvent<HTMLElement, MouseEvent>): void {
@@ -77,7 +77,7 @@ export default function LanderPage(): JSX.Element {
         <div className="illustrationContainer">
           <img
             className="salonIllustration"
-            src="src/assets/images/salon_scene.png"
+            src="/src/assets/images/salon_scene.png"
           />
           <div className="conversationBubble stylize">
             <p>⏵ Salon :: What hair cut do you want?</p>

@@ -66,3 +66,18 @@ menu li:hover {
 menu li:active {
     background-color: #f1f1e8;
 }
+
+.navBarItem {
+    color: #759971;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1.05rem;
+}
+
+.navBarItem:hover {
+    color: #466632;
+}
+
+.navBarItem:active {
+    color: #162410;
+}
