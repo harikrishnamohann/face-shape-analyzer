@@ -80,7 +80,8 @@ input[type="number"] {
 }
 
 .measurementsPage .querySection .queryBox input:focus {
-  outline: 2px solid #608649;
+  border: 2px solid #608649;
+  outline: 0;
 }
 
 #Forehead {

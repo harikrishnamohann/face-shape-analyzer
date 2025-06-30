@@ -3,34 +3,24 @@ import { NavBar, type NavBarProps } from "./components/navBar";
 import { useNavigate } from "react-router-dom";
 import { QueryForm, InputErrMsg } from "./components/queryForm";
 import ShowDemoGIF from "./components/showDemoGIF";
+import ToggleModeButton from "./components/toggleModeButton";
 import "./stylesheets/measurementsPage.css";
 
-export type ComputeModeType = "query" | "ml" | null;
-type MeasurementsPageProps = {
-  computeMode: ComputeModeType;
-  setComputeMode: (computeMode: ComputeModeType) => void;
-};
+export type ComputeModeType = "query" | "ml";
 
 const faceParts = ["Forehead", "Cheekbone", "Jawline", "Chin"];
 const faceStructure: { [part: string]: number } = {};
 faceParts.map((part) => (faceStructure[part] = 0));
 // faceStructure can be accessed as faceStructure["oval"]
 
-export default function measurementsPage(props: MeasurementsPageProps): JSX.Element {
+export default function measurementsPage(): JSX.Element {
   const navigate = useNavigate(); // for go button
   const [inputErr, setInputErr] = useState<InputErrMsg>(InputErrMsg.NoErr);
   const [currentInputField, setCurrentInputField] = useState("none");
 
   // navbar contains a toggle button component to switch between compute modes.
-  // compute modes: query: conditional method, ml: uses machine learning
   const navBarContent: NavBarProps<ComputeModeType>[] = [
-    {
-      component: <div className="navBarItem">query</div>,
-      stateHooks: {
-        nextState: "ml",
-        setNextState: props.setComputeMode,
-      },
-    },
+    { component: <ToggleModeButton currentPage="query" to="ml" /> },
   ];
 
   function handleGoButton(): void {
