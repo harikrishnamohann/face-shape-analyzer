@@ -1,69 +1,68 @@
 @font-face {
-    font-family: "PixelifySansRegular";
-    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf");
+  font-family: "PixelifySansRegular";
+  src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Regular.ttf");
 }
 
 @font-face {
-    font-family: "PixelifySansBold";
-    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Bold.ttf");
+  font-family: "PixelifySansBold";
+  src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Bold.ttf");
 }
 
 @font-face {
-    font-family: "PixelifySansSemiBold";
-    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-SemiBold.ttf");
+  font-family: "PixelifySansSemiBold";
+  src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-SemiBold.ttf");
 }
 
 @font-face {
-    font-family: "PixelifySansMedium";
-    src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Medium.ttf");
+  font-family: "PixelifySansMedium";
+  src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Medium.ttf");
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    min-height: 100vh;
-    min-width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "PixelifySansRegular", sans-serif;
-    background: #def3d7;
-    padding: 1ch;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "PixelifySansRegular", sans-serif;
+  background: #def3d7;
+  padding: 1ch;
 }
 
 button {
-    background-color: white;
-    padding: 1ch 2ch;
-    font-family: "PixelifySansMedium", sans-serif;
-    font-size: 1.2rem;
-    color: #4f7736;
-    border-radius: 4px;
-    transition: background 0.2s, border-radius 0.2s;
+  background-color: white;
+  padding: 1ch 2ch;
+  font-family: "PixelifySansMedium", sans-serif;
+  font-size: 1.2rem;
+  color: #4f7736;
+  border-radius: 4px;
+  transition: background 0.2s, border-radius 0.2s;
 }
 
 button:hover {
-    background-color: #f1f0e1;
-    cursor: pointer;
+  background-color: #f1f0e1;
+  cursor: pointer;
 }
 
 button:active {
-    background-color: #e0e0d1;
-    border-radius: 8px;
+  background-color: #e0e0d1;
+  border-radius: 8px;
 }
 
-
 section {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 320px;
-    max-width: 120ch;
-    width: 97vw;
-    height: 97vh;
-    overflow: auto;;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+  max-width: 120ch;
+  width: 97vw;
+  height: 97vh;
+  overflow: auto;
 }
