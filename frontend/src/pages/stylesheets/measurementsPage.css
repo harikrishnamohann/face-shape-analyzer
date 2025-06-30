@@ -57,6 +57,10 @@
     margin-left: 1ch;
 }
 
+.measurementsPage .querySection .queryBox > ul > li label {
+    cursor: pointer;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -79,6 +83,10 @@ input[type=number] {
     color: #34612E; 
 }
 
+.measurementsPage .querySection .queryBox input:focus {
+    outline: 2px solid #608649;
+}
+
 #Forehead {
     position: relative;
     left: 1ch;
@@ -98,6 +106,7 @@ input[type=number] {
     color: #d84141;
     max-width: 18ch;
     font-size: 0.9rem;
+    height: 3ch;
 }
 
 .measurementsPage .querySection .demoContainer {
@@ -115,4 +124,14 @@ input[type=number] {
 
 .measurementsPage button {
     width: 12ch;
+}
+
+@keyframes errBlink {
+    0%, 100% { background-color: #f7d7d7; }
+    50% { background-color: white; }
+}
+
+.err {
+    animation: errBlink 0.5s linear 0s 1;
+    background-color: #f7d7d7;
 }
