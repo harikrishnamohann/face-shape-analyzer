@@ -1,5 +1,6 @@
 import { type JSX } from "react";
 import { useNavigate } from "react-router-dom";
+import "../stylesheets/navbar.css";
 
 export interface NavBarProps<T> {
   component: JSX.Element;

@@ -18,6 +18,14 @@
   src: url("src/assets/fonts/Pixelify_Sans/static/PixelifySans-Medium.ttf");
 }
 
+:root {
+  --light-green: #608649;
+  --strong-green: #34612e;
+  --medium-red: #d84141;
+  --medium-yellow: #fefce6;
+  --light-red: #ffe7e7;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -37,7 +45,7 @@ body {
 
 button {
   background-color: white;
-  padding: 1ch 2ch;
+  padding: 1.2ch 2ch;
   font-family: "PixelifySansMedium", sans-serif;
   font-size: 1.2rem;
   color: #4f7736;
@@ -46,7 +54,7 @@ button {
 }
 
 button:hover {
-  background-color: #f1f0e1;
+  background-color: var(--medium-yellow);
   cursor: pointer;
 }
 
@@ -65,4 +73,5 @@ section {
   width: 97vw;
   height: 97vh;
   overflow: auto;
+  padding: 2ch;
 }

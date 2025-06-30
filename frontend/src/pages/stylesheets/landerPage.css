@@ -1,55 +1,52 @@
-.landerPage {
-    padding: 2ch 2ch 6ch 2ch;
-}
 .landerPage > .content {
-    display: flex;
-    flex-wrap: wrap-reverse;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: center;
+  align-items: center;
 }
 .landerPage .illustrationContainer {
-    max-width: 55ch;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2ch;
+  max-width: 55ch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2ch;
 }
 
 .landerPage .salonIllustration {
-    max-width: 70ch;
-    width: 100%;
-    display: block;
+  max-width: 70ch;
+  width: 100%;
+  display: block;
 }
 
 .conversationBubble {
-    position: relative;
-    background-color: #f1f0e1;
-    width: 34ch;
-    padding: 1ch;
-    z-index: 1;
-    color: #608649
+  position: relative;
+  background-color: var(--medium-yellow);
+  width: 34ch;
+  padding: 1ch;
+  z-index: 1;
+  color: var(--light-green);
 }
 
 .landerPage .logoContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .landerPage .logo {
-    font-size: 2.5rem;
-    color: #34612E;
-    font-family: "PixelifySansSemiBold", sans-serif;
-    text-align: center;
-    margin-top: 1ch;
+  font-size: 2.5rem;
+  color: var(--strong-green);
+  font-family: "PixelifySansSemiBold", sans-serif;
+  text-align: center;
+  margin-top: 1ch;
 }
 
 .landerPage .slogan {
-    color: #608649;
-    font-size: 1.1rem;
-    text-align: center;
+  color: var(--light-green);
+  font-size: 1.1rem;
+  text-align: center;
 }
 
 .landerPage > .content button {
-    margin-top: 3ch;
+  margin-top: 3ch;
 }

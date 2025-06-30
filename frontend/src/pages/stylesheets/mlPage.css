@@ -1,0 +1,22 @@
+.mlPage .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1ch;
+  height: 100%;
+  max-width: 80ch;
+}
+
+.mlPage > .content img {
+  max-width: 50ch;
+  width: 100%;
+}
+
+.mlPage > .content button {
+  margin-top: 2ch;
+}
+
+.mlPage > .content p {
+  color: #73a173;
+}

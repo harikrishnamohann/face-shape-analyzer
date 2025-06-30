@@ -1,83 +1,13 @@
 @media (min-width: 105ch) {
-    .landerPage > .content {
-        height: 100%;
-        gap: 4ch;
-        padding: 0 4ch;
-    }
+  .landerPage > .content {
+    height: 100%;
+    gap: 4ch;
+    padding: 0 4ch;
+  }
 }
 
 .stylize {
-    border: 2px solid rgb(52, 97, 46);
-    border-radius: 4px;
-    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
-}
-
-.navBar {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1ch;
-}
-
-.navBox {
-    display: flex;
-    align-items: center;
-    gap: 1ch;
-}
-
-.topLogo {
-    font-size: 1.3rem;
-    font-family: "PixelifySansBold", sans-serif;
-    color: rgba(52,87,46, 0.2);
-    cursor: pointer;
-    user-select: none;
-}
-
-.topLogo:hover {
-    color: rgba(52,87,46, 0.5);
-}
-
-.topLogo:active {
-    color: rgba(52,87,46, 0.8);
-}
-menu {
-    position: fixed;
-    background-color: #f1f0e1;
-    /* right: 4ch; */
-    /* top: 8ch; */
-    width: 10ch;
-    max-height: 24ch;
-    overflow: auto;
-    text-align: center;
-}
-
-menu li {
-    padding: 0.5ch;
-    border-bottom: 1px solid #608649;
-    color: #34612E;
-    cursor: pointer;
-}
-
-menu li:hover {
-    background-color: #e0e0d1;
-}
-
-menu li:active {
-    background-color: #f1f1e8;
-}
-
-.navBarItem {
-    color: #759971;
-    text-decoration: underline;
-    cursor: pointer;
-    font-size: 1.05rem;
-}
-
-.navBarItem:hover {
-    color: #466632;
-}
-
-.navBarItem:active {
-    color: #162410;
+  border: 2px solid rgb(52, 97, 46);
+  border-radius: 4px;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.5);
 }

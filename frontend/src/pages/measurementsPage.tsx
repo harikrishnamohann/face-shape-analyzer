@@ -31,15 +31,15 @@ function HowToMeasure(): JSX.Element {
   );
 }
 
+// navbar contains a toggle button component to switch between compute modes.
+const navBarContent: NavBarProps<null>[] = [
+  { component: <ToggleModeButton currentPage="query" to="ml" /> },
+];
+
 export default function measurementsPage(): JSX.Element {
   const navigate = useNavigate(); // for go button
   const [inputErr, setInputErr] = useState<InputErrMsg>(InputErrMsg.NoErr);
   const [currentInputField, setCurrentInputField] = useState("none");
-
-  // navbar contains a toggle button component to switch between compute modes.
-  const navBarContent: NavBarProps<ComputeModeType>[] = [
-    { component: <ToggleModeButton currentPage="query" to="ml" /> },
-  ];
 
   function handleGoButton(): void {
     let isEmptyFieldsPresent: boolean = false;
