@@ -43,6 +43,7 @@ export default function measurementsPage(): JSX.Element {
 
   function handleGoButton(): void {
     let isEmptyFieldsPresent: boolean = false;
+    let isValuesInRange = true;
     faceParts.map((part) => {
       const target = document.getElementById(part) as HTMLInputElement;
       faceStructure[part] = Number(target.value);
@@ -50,12 +51,17 @@ export default function measurementsPage(): JSX.Element {
         isEmptyFieldsPresent = true;
         document.getElementById(part)?.classList.add("err");
       }
+      if (faceStructure[part] < 5 || faceStructure[part] > 40) isValuesInRange = false;
     });
     if (isEmptyFieldsPresent) {
       setInputErr(InputErrMsg.EmptyFields);
-    } else {
+      return;
+    }
+    if (isValuesInRange) {
       // make request to server
       navigate("/loading");
+    } else {
+      setInputErr(InputErrMsg.RangeInvalid);
     }
   }
 
