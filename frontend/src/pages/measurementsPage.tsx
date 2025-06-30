@@ -13,6 +13,24 @@ const faceStructure: { [part: string]: number } = {};
 faceParts.map((part) => (faceStructure[part] = 0));
 // faceStructure can be accessed as faceStructure["oval"]
 
+function HowToMeasure(): JSX.Element {
+  return (
+    <p>
+      <u>
+        <b>How to measure?</b>
+      </u>
+      <br />
+      1. Grab a piece of string and a ruler or a measuring tape <br />
+      2. Click input fields to see how to measure each part of your face. <br />
+      3. Fill the form using the values you've got in{" "}
+      <b>
+        <u>centimeters</u>
+      </b>
+      .
+    </p>
+  );
+}
+
 export default function measurementsPage(): JSX.Element {
   const navigate = useNavigate(); // for go button
   const [inputErr, setInputErr] = useState<InputErrMsg>(InputErrMsg.NoErr);
@@ -53,19 +71,7 @@ export default function measurementsPage(): JSX.Element {
       <NavBar items={navBarContent} />
       <div className="content">
         <h1 className="title">Let's measure your face</h1>
-        <p>
-          <u>
-            <b>How to measure?</b>
-          </u>
-          <br />
-          1. Grab a piece of string and a ruler or a measuring tape <br />
-          2. Click input fields to see how to measure each part of your face. <br />
-          3. Fill the form using the values you've got in{" "}
-          <b>
-            <u>centimeters</u>
-          </b>
-          .
-        </p>
+        <HowToMeasure />
         <div className="querySection">
           <QueryForm
             queryItems={faceParts}
