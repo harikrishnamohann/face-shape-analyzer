@@ -1,0 +1,31 @@
+.loadingPage > .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: var(--light-green);
+  font-size: 1.5rem;
+  font-family: "PixelifySansBold", sans-serif;
+}
+
+.loadingPage img {
+  width: 100%;
+  max-width: 50ch;
+}
+
+@keyframes loadingDots {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.loadingPage .content > p::after {
+  content: " . . .";
+  animation: loadingDots 1s infinite;
+}

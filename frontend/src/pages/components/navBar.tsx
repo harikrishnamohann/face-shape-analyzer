@@ -10,7 +10,7 @@ export interface NavBarProps<T> {
   };
 }
 
-export function NavBar({ items }: { items: NavBarProps<any>[] }): JSX.Element {
+export function NavBar({ items }: { items?: NavBarProps<any>[] }): JSX.Element {
   const navigate: ReturnType<typeof useNavigate> = useNavigate();
   return (
     <nav className="navBar">
@@ -20,14 +20,15 @@ export function NavBar({ items }: { items: NavBarProps<any>[] }): JSX.Element {
         </p>
       </div>
       <div className="navBox">
-        {items.map((component, i) => (
-          <div
-            key={`component${i}`}
-            onClick={() => component.stateHooks?.setNextState(component.stateHooks.nextState)}
-          >
-            {component.component}
-          </div>
-        ))}
+        {items &&
+          items.map((component, i) => (
+            <div
+              key={`component${i}`}
+              onClick={() => component.stateHooks?.setNextState(component.stateHooks.nextState)}
+            >
+              {component.component}
+            </div>
+          ))}
       </div>
     </nav>
   );
