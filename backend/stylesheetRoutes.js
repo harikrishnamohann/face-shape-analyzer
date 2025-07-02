@@ -4,9 +4,9 @@ import { ObjectId } from "mongodb";
 
 let stylesheetRouter = express.Router();
 
-stylesheetRouter.route("/shapes/:id").get(async (request, response) => {
+stylesheetRouter.route("/shapes/:name").get(async (request, response) => {
     const db = database.getDb(); 
-    let shapeData = await db.collection("stylesheet").findOne({ _id: new ObjectId(request.params.id) });
+    let shapeData = await db.collection("stylesheet").findOne({ shape: request.params.name });
     if (Object.keys(shapeData).length > 0) {
         response.json(shapeData);
     } else {
