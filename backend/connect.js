@@ -1,8 +1,16 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
-const Client = new MongoClient(process.env.ATLAS_URI);
+let Client;
+
+try {
+  Client = new MongoClient(process.env.ATLAS_URI);
+} catch (error) {
+  console.error("Failed to create MongoClient:", error);
+  throw error;
+}
+
 let DataBase; 
 
 

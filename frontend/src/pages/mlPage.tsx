@@ -11,7 +11,10 @@ export default function MlPage(): JSX.Element {
   const [err, setErr] = useState<UploadImagesErr | null>(null);
 
   useEffect(() => {
-    if (err === UploadImagesErr.ok) navigate("/loading");
+    if (err === UploadImagesErr.ok) {
+      // todo
+      navigate("/loading");
+    }
   }, [err]);
 
   const navBarContent: NavBarProps<null>[] = [
@@ -22,15 +25,16 @@ export default function MlPage(): JSX.Element {
       <NavBar items={navBarContent} />
       <div className="content">
         <img src="/src/assets/images/tmp.png" alt="upload a selfie image" />
-        <p className={err ? "errText" : undefined}>
-          {err ? err : "Upload a clear front facing selfie."}
-        </p>
         <UploadImages
           imageFiles={imageFiles}
           setImageFiles={setImageFiles}
           err={err}
           setErr={setErr}
+          placeholder="Upload"
         />
+        <p className={err ? "errText" : undefined}>
+          {err ? err : "Upload a clear front facing selfie."}
+        </p>
       </div>
     </section>
   );

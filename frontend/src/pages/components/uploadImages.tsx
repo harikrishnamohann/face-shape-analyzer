@@ -11,6 +11,7 @@ type UploadImagesProps = {
   setImageFiles: (imageFiles: FileList | null) => void;
   err: UploadImagesErr | null;
   setErr: (errMsg: UploadImagesErr | null) => void;
+  placeholder: string;
 };
 
 export function UploadImages(props: UploadImagesProps): JSX.Element {
@@ -65,7 +66,7 @@ export function UploadImages(props: UploadImagesProps): JSX.Element {
         }}
         className="stylize"
       >
-        Upload
+        {props.placeholder}
       </button>
     </>
   );
