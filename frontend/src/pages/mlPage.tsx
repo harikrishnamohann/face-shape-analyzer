@@ -33,7 +33,7 @@ export default function MlPage(): JSX.Element {
           placeholder="Upload"
         />
         <p className={err ? "errText" : undefined}>
-          {err ? err : "Upload a clear front facing selfie."}
+          {err || "Upload a clear front facing selfie."}
         </p>
       </div>
     </section>

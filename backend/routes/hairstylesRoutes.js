@@ -2,6 +2,8 @@ import express from "express";
 import * as database from "../connect.js";
 import { ObjectId } from "mongodb";
 
+// errors should be handled later
+
 let hairstylesRouter = express.Router();
 
 async function updateOne(request, response) {
