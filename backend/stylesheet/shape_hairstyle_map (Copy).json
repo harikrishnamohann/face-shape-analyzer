@@ -15,8 +15,8 @@
     "hairstyles":["buzz_cut","crew_cut","french_crop","high_fade_with_quiff","long_layered","man_bun","medium_shag","messy_fringe","pompadour","side_part","slicked_back_hair","textured_crop","classic_taper","short_spiky","undercut","long_hair_undercut"]
   },{
     "shape":"diamond",
-    "hairstyles":["classic_side_part","textured_crop","shaggy_layers","medium_length_opmpadour","shoulder_length_waves","long_layered","textured_quiff","curly_top_with_faded_sides","spiky_undercut","high_top_fade","twists_with_taper_fade","messy_hair","layered_cut","buzz_cut"]
+    "hairstyles":["classic_side_part","textured_crop","shaggy_layers","medium_length_opmpadour","shoulder_length_waves","long_layered","textured_quiff","curly_top_with_faded_sides","buzz_cut","spiky_undercut","high_top_fade","twists_with_taper_fade","messy_hair","layered_cut"]
   },{
     "shape":"heart",
-    "hairstyles":["textured_crop","quiff_short","taper_fade_with_side_part","buzz_cut","long_layered","long_shag_cut","man_bun","curly_fringe_with_low_fade","curly_mohawk_fade","side_swept","slicked_back_undercut","modern_pompadour","textured_crew_cut","comb_over","faux_hawk_fade","messy_wavy_hair","wavy_fringe_with_undercut","wavy_shag","layered_taper_cut","disconnected_undercut","short_spiky_crop","undercut"]
+    "hairstyles":["undercut","textured_crop","quiff_short","taper_fade_with_side_part","buzz_cut","long_layered","long_shag_cut","man_bun","curly_fringe_with_low_fade","curly_mohawk_fade","side_swept","slicked_back_undercut","modern_pompadour","textured_crew_cut","comb_over","faux_hawk_fade","messy_wavy_hair","wavy_fringe_with_undercut","wavy_shag","layered_taper_cut","disconnected_undercut","short_spiky_crop"]
   }]
