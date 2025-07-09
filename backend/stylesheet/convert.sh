@@ -1,25 +1,21 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
 
 DEST=./converted
-mkdir -p $DEST
+mkdir -p "$DEST"
 
 PREV_STYLE=""
-for file in ./inventory/*/*.{png,gif,bmp,tiff,webp,jxl,jpg,jpeg}
+i=0
+
+find ./inventory/ -type f \( -iname '*.png' -o -iname '*.webp' -o -iname '*.jxl' -o -iname '*.jpg' -o -iname '*.jpeg' \) | while IFS= read -r file
 do
-	if [ -f $file ]
-	then
-		STYLE_DIR=$(echo $file | cut -d'/' -f3)
-		[ $STYLE_DIR != $PREV_STYLE ] && i=0
-		FILE_NAME=$(echo $file | cut -d '/' -f4 | cut -d '.' -f1)
+    STYLE_DIR=$(echo "$file" | cut -d'/' -f3)
+    [ "$STYLE_DIR" != "$PREV_STYLE" ] && i=0
 
-		mkdir -p "$DEST/$STYLE_DIR"
-		cp "$file" "$DEST/$STYLE_DIR/$i.jpg"
+    FILE_NAME=$(basename "$file" | cut -d '.' -f1)
+    mkdir -p "$DEST/$STYLE_DIR"
 
-		# magick -quality 100 +compress "$file" "$DEST/$STYLE_DIR/$FILE_NAME.jpg"
-		# trash "$file"
+    magick -quality 100 +compress "$file" "$DEST/$STYLE_DIR/$i.jpg" && echo -n "$DEST/$STYLE_DIR/$i.jpg" && echo " ☑" || echo -e "\e[31m ☒\e[0m"
 
-		i=$[i+1]
-		PREV_STYLE=$STYLE_DIR
-	fi
-
+    ((i++))
+    PREV_STYLE="$STYLE_DIR"
 done
