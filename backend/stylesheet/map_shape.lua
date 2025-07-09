@@ -69,13 +69,13 @@ end
 
 local function usage()
     print("\nUSAGE: " .. arg[0] .. " <operation> <shape> <hairstyle>")
-    print("operation: {")
+    io.write("operation: { ")
     for key, _ in pairs(operations) do
-        print("\t" .. key)
+        io.write( key .. ", ")
     end
-    print("}\nshapes: {")
+    io.write("}\nshapes: { ")
     for _, shape in pairs(shapes) do
-        print("\t" .. shape)
+        io.write(shape .. ", ")
     end
     print("}")
 end
