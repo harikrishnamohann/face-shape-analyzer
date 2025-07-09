@@ -4,7 +4,7 @@ DEST=./converted
 mkdir -p $DEST
 
 PREV_STYLE=""
-for file in ./inventory0/*/*.{png,gif,bmp,tiff,webp,jxl,jpg,jpeg}
+for file in ./inventory/*/*.{png,gif,bmp,tiff,webp,jxl,jpg,jpeg}
 do
 	if [ -f $file ]
 	then
