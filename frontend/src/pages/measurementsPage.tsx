@@ -8,7 +8,7 @@ import "./stylesheets/measurementsPage.css";
 
 export type ComputeModeType = "query" | "ml";
 
-const faceParts = ["Forehead", "Cheekbone", "Jawline", "Chin"];
+const faceParts = ["Forehead", "Cheekbone", "Jawline", "Height"];
 const faceStructure: { [part: string]: number } = {};
 faceParts.map((part) => (faceStructure[part] = 0));
 // faceStructure can be accessed as faceStructure["oval"]
