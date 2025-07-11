@@ -6,7 +6,7 @@ import styleSheetRoutes from "./routes/stylesheetRoutes.js";
 import hairStylesRoutes from "./routes/hairstylesRoutes.js";
 import shapeAnalysisRoutes from "./routes/shapeAnalysisRoutes.js";
 
-dotenv.config();
+dotenv.config(); // loads options from .env file (like db key)
 
 const app = express();
 const PORT = process.env.PORT || 3000;

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# this script is used to compress images using magick tool
+
 DEST=./converted
 mkdir -p "$DEST"
 

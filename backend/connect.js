@@ -1,8 +1,10 @@
-import { Db, MongoClient } from "mongodb";
+import { MongoClient } from "mongodb";
+
+// database key is stored in ./.env file
 import dotenv from "dotenv";
 dotenv.config();
 
-let Client;
+let Client, DataBase;
 
 try {
   Client = new MongoClient(process.env.ATLAS_URI);
@@ -10,9 +12,6 @@ try {
   console.error("Failed to create MongoClient:", error);
   throw error;
 }
-
-let DataBase; 
-
 
 export async function connectToDb() {
   DataBase = Client.db(process.env.DB_NAME);
@@ -23,5 +22,5 @@ export function getDb() {
 }
 
 export async function closeDb() {
-    await Client.close();
+  await Client.close();
 }

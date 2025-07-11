@@ -55,11 +55,12 @@ type FaceialData = {
 };
 
 async function analyzeShape(data: FaceialData): Promise<string | null> {
-  const url = `http://localhost:3000/analyzeShape`;
+  const url = `http://localhost:3000/${data.isMl ? "processImage" : "processMeasurements"}`;
   const formData = new FormData();
 
-  if (data.image) formData.append("image", data.image);
-  formData.append("isMl", String(data.isMl));
+  if (data.isMl) {
+    data.image && formData.append("image", data.image);
+  }
   formData.append("jawline", String(data.jawline));
   formData.append("height", String(data.height));
   formData.append("cheekbone", String(data.cheekbone));

@@ -3,6 +3,16 @@ import * as database from "../connect.js";
 import { ObjectId } from "mongodb";
 
 // errors should be handled later
+/**
+ * This file implements the methods for doing CURD operations
+ * on a single hairstyle from the hairstyles collection.
+ * Routes to access these methods are as follows:
+ *
+ *  POST => /hairstyles       -- to create a hairstyle from db
+ *  PUT => /hairstyles/:id    -- to update a hairstyle from db
+ *  GET => /hairstyles/:id    -- to retrieve a hairstyle from db
+ *  DELETE => /hairstyles/:id -- to delete a hairstyle from db
+ */
 
 let hairstylesRouter = express.Router();
 

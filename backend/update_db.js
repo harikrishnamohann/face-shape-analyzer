@@ -1,5 +1,25 @@
-// usage: node update_db.js [stylesheet|hairstyles]
-// or just node update_db.js to update both collections
+/**
+ * This script populates our database from the data stored locally in various
+ * ways.
+ * I've stored the different hairstyle-name to face-shape mapping is stored
+ * in a JSON file (./stylesheet/shape_hairstyle_map.json) in stylesheet
+ * directory. The hairstyles are stored in inventory folder holds all images
+ * in corresponding hairstyle-named folders.
+ *
+ * There are two collections in mongodb database.
+ *  1. hairstyles : contains hairstyles from inventory
+ *  2. stylesheet : contains informations related to shapes including hairstyles.
+ *
+ * This script will delete the contents of these two collections and rebuild
+ * it from local machine, and update it to the database.
+ *
+ * USAGE: node update_db.js <stylesheet | hairstyles>
+ *
+ * updates corresponding collections. Stylesheet cannot be updated if hairstyles
+ * collection isn't present in the db, since the list of hairstyle in each shape
+ * refer to the objectId of hairstyle in hairstyles collection.
+ *
+ */
 
 import fs from "fs";
 import * as database from "./connect.js";
@@ -8,7 +28,6 @@ await database.connectToDb();
 const db = database.getDb();
 
 const Root = "./stylesheet";
-const Shapes = ["oval", "round", "oblong", "triangle", "square", "diamond", "heart"];
 const ShapeDesc = {
   oval: "You’ve got an oval shaped face, congratulations; you’ve hit the genetic jackpot of head shapes. Seriously, it’s the Swiss Army knife of face shapes, which means the world of grooming is your oyster.",
   round:
@@ -25,6 +44,8 @@ const ShapeDesc = {
     "You've got a heart shaped face. For a heart-shaped face, hairstyles that add width to the jawline and soften the forehead are ideal. Men with heart-shaped faces can consider styles like textured crops with side bangs, or longer styles with loose waves and a side part to balance the wider forehead and narrower chin.",
 };
 
+// lists the contents of specified path except for . and ..
+// (readdirSync method won't return . and ..)
 function listDirectory(path) {
   try {
     return fs.readdirSync(path);
@@ -34,6 +55,7 @@ function listDirectory(path) {
   }
 }
 
+// returns the files in given dirPath as a base64 string array.
 function readFilesAsBase64(dirPath) {
   try {
     const files = new Array();
@@ -47,6 +69,7 @@ function readFilesAsBase64(dirPath) {
   }
 }
 
+// writes data to specified collection after erasing all its contents.
 async function writeToDb(data, collectionName) {
   try {
     await db.collection(collectionName).deleteMany({});
@@ -74,11 +97,13 @@ async function fetchImageIdsFromImagesCollectionAsync(images) {
   }
 }
 
+// reads the json file, replace hairstyles with corresponding objectId's from hairstyles
+// collection and insert shape descriptions.
 async function generateStylesheetAsync() {
   const styleSheet = JSON.parse(fs.readFileSync(`${Root}/shape_hairstyle_map.json`));
   if (styleSheet) {
-    for (let entity of styleSheet) {
-      entity.description = ShapeDesc[entity.shape];
+    for (let faceShape of styleSheet) {
+      faceShape.description = ShapeDesc[faceShape.shape];
     }
     for (let i = 0; i < styleSheet.length; i++) {
       await fetchImageIdsFromImagesCollectionAsync(styleSheet[i].hairstyles);
@@ -90,6 +115,16 @@ async function generateStylesheetAsync() {
   }
 }
 
+/**
+ * this function reads the file structure of inventory folder,
+ * assign folder name to { name:  } and images in it to images:
+ * @returns [
+ *  {
+ *    name: string,
+ *    images: string[],       // contains base64 encoded image files.
+ *  }
+ * ]
+ */
 function generateHairstyles() {
   const HairStyles = new Array();
   const inventory = `${Root}/inventory`;
@@ -102,12 +137,15 @@ function generateHairstyles() {
   return HairStyles;
 }
 
+// this block handles cli arguments of this small tool
 if (process.argv.length === 3 && process.argv.includes("stylesheet")) {
   await writeToDb(await generateStylesheetAsync(), "stylesheet");
 } else if (process.argv.length === 3 && process.argv.includes("hairstyles")) {
   await writeToDb(generateHairstyles(), "hairstyles");
 } else {
-  console.log("input a collection to update: stylesheet, hairstyles");
+  console.log(
+    "err: invalid or no input argument recieved.\nUSAGE: node update_db.js <stylesheet | hairstyles>"
+  );
   await database.closeDb();
   process.exit(1);
 }

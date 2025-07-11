@@ -1,6 +1,16 @@
 import express from "express";
 import * as database from "../connect.js";
 
+/**
+ * This file contains methods to perform CURD operations on
+ * stylesheet collection. Routes:
+ *
+ * POST => /stylesheet          -- to create a shape entity
+ * PUT => /stylesheet/:shape    -- to update a shape entity
+ * GET => /stylesheet/:shape    -- to retrieve a shape entity
+ * DELETE => /stylesheet/:shape -- to delete on shape entity
+ */
+
 let stylesheetRoutes = express.Router();
 
 function isValidShape(shape) {
