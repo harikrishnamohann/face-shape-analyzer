@@ -53,7 +53,7 @@ async function retrieveOne(request, response) {
   const db = database.getDb();
   const { shape } = request.params;
   if (!isValidShape(shape)) {
-    throw new Error("invalid shape");
+    throw new Error(`${shape} is not valid shape`);
   }
   let shapeData = await db.collection("stylesheet").findOne({ shape: String(shape) });
   if (shapeData && Object.keys(shapeData).length > 0) {

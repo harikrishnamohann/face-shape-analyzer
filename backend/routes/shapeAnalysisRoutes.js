@@ -6,7 +6,7 @@ const upload = multer({ dest: "uploads/" });
 
 function processImage(request, response) {
   const image = request.file;
-  response.json({ result: "oval" });
+  response.json("oval");
 }
 
 function processMeasurements(request, response) {
@@ -18,7 +18,7 @@ function processMeasurements(request, response) {
   };
 
   console.log("Processed facial data:", facialData);
-  response.json({ result: "diamond" });
+  response.json("diamond");
 }
 
 shapeAnalysisRouter.route("/processImage").post(upload.single("image"), processImage);

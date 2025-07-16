@@ -3,6 +3,7 @@ import { NavBar, type NavBarProps } from "./components/navBar";
 import ToggleModeButton from "./components/toggleModeButton";
 import { useNavigate } from "react-router-dom";
 import { UploadImagesErr, UploadImages } from "./components/uploadImages";
+import { type FacialDataProps } from "./components/serverActions";
 import "./stylesheets/mlPage.css";
 
 export default function MlPage(): JSX.Element {
@@ -10,10 +11,13 @@ export default function MlPage(): JSX.Element {
   const [imageFiles, setImageFiles] = useState<FileList | null>(null);
   const [err, setErr] = useState<UploadImagesErr | null>(null);
 
+  let facialData: FacialDataProps = {};
+
   useEffect(() => {
     if (err === UploadImagesErr.ok) {
       // todo
-      navigate("/loading");
+      facialData.imageFile = imageFiles && imageFiles[0];
+      navigate("/loading", { state: facialData });
     }
   }, [err]);
 

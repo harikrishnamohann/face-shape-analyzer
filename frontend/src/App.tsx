@@ -15,7 +15,7 @@ export default function App(): JSX.Element {
         <Route path="/query" element={<MeasurementsPage />} />
         <Route path="/ml" element={<MlPage />} />
         <Route path="/loading" element={<LoadingPage />} />
-        <Route path="/shapes/:id" element={<ShapesPage />} />
+        <Route path="/shapes/:shape" element={<ShapesPage />} />
       </Routes>
     </Router>
   );
