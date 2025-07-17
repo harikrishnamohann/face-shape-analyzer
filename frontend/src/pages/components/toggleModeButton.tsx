@@ -11,7 +11,10 @@ type ToggleModeButtonProps = {
 export default function ToggleModeButton(props: ToggleModeButtonProps): JSX.Element {
   const navigate = useNavigate();
   return (
-    <div className="toggleButtonWrapper" onClick={() => navigate(`/${props.to}`)}>
+    <div
+      className="toggleButtonWrapper"
+      onClick={() => navigate(`/${props.to}`, { replace: true })}
+    >
       <img
         className={props.currentPage === "query" ? "modeEnabled" : undefined}
         src="/src/assets/icons/scissors.png"

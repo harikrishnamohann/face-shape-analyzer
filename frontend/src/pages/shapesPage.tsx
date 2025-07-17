@@ -15,7 +15,6 @@ export default function ShapesPage(): JSX.Element {
     const fetchShape = async () => {
       const data = await server.fetchShape(shape);
       setShapeData(data);
-      console.log(data);
     };
 
     fetchShape();
@@ -24,7 +23,10 @@ export default function ShapesPage(): JSX.Element {
   return (
     <section className="stylize shapesPage">
       <h1>{shapeData?.shape}</h1>
-      {shapeData && JSON.stringify(shapeData, null, 2)}
+      {shapeData?.description}
+      {shapeData?.hairstyles.map((image) => (
+        <div>{image}</div>
+      ))}
     </section>
   );
 }

@@ -11,7 +11,7 @@ export type StyleSheetItem = {
   hairstyles: string[];
 };
 
-export type FacialDataProps = {
+export type AnalyzeShapeProps = {
   imageFile?: File | null;
   jawline?: number;
   height?: number;
@@ -55,7 +55,7 @@ export class ServerApi {
     }
     return null;
   }
-  async analyzeShape(data: FacialDataProps): Promise<string | null> {
+  async analyzeShape(data: AnalyzeShapeProps): Promise<string | null> {
     const url = `${this.server}/${data.imageFile ? "processImage" : "processMeasurements"}`;
     const formData = new FormData();
 

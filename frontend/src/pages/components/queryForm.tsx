@@ -7,12 +7,6 @@ const enum InputErrMsg {
   EmptyFields = "All values should be given.",
 }
 
-interface QueryInputProps {
-  item: string;
-  setItem: (item: string) => void;
-  setInputErr: (statusMsg: InputErrMsg) => void;
-}
-
 function focusNextInputElement(event: React.KeyboardEvent<HTMLInputElement>): void {
   const target = event.target as HTMLInputElement;
   if (!target.classList.contains("err") && target.value !== "" && event.key === "Enter") {
@@ -26,6 +20,11 @@ function focusNextInputElement(event: React.KeyboardEvent<HTMLInputElement>): vo
   }
 }
 
+interface QueryInputProps {
+  item: string;
+  setItem: (item: string) => void;
+  setInputErr: (statusMsg: InputErrMsg) => void;
+}
 function QueryInput(props: QueryInputProps): JSX.Element {
   function handleInput(event: React.FormEvent<HTMLInputElement>): void {
     const target = event.target as HTMLInputElement;

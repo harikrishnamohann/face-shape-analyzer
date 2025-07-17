@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { QueryForm, InputErrMsg } from "./components/queryForm";
 import ShowDemoGIF from "./components/showDemoGIF";
 import ToggleModeButton from "./components/toggleModeButton";
+import { type AnalyzeShapeProps } from "./components/serverActions";
 import "./stylesheets/measurementsPage.css";
 
 export type ComputeModeType = "query" | "ml";
@@ -41,6 +42,15 @@ export default function measurementsPage(): JSX.Element {
   const [inputErr, setInputErr] = useState<InputErrMsg>(InputErrMsg.NoErr);
   const [currentInputField, setCurrentInputField] = useState("none");
 
+  let facialData: AnalyzeShapeProps = {};
+
+  function updateFacialData({ key, val }: { key: string; val: number }) {
+    if (key === "forehead") facialData.forehead = val;
+    else if (key === "height") facialData.height = val;
+    else if (key === "cheekbone") facialData.cheekbone = val;
+    else if (key === "jawline") facialData.jawline = val;
+  }
+
   function handleGoButton(): void {
     let isEmptyFieldsPresent: boolean = false;
     let isValuesInRange = true;
@@ -58,8 +68,10 @@ export default function measurementsPage(): JSX.Element {
       return;
     }
     if (isValuesInRange) {
-      // make request to server
-      navigate("/loading");
+      faceParts.map((part) =>
+        updateFacialData({ key: part.toLowerCase().trim(), val: faceStructure[part] })
+      );
+      navigate("/loading", { state: facialData });
     } else {
       setInputErr(InputErrMsg.RangeInvalid);
     }

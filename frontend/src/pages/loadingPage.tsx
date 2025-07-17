@@ -1,20 +1,22 @@
 import { useEffect, useState, type JSX } from "react";
 import { NavBar } from "./components/navBar";
-import "./stylesheets/loadingPage.css";
-import { ServerApi } from "./components/serverActions";
+import { ServerApi, type AnalyzeShapeProps } from "./components/serverActions";
 import { useNavigate, useLocation } from "react-router-dom";
+import "./stylesheets/loadingPage.css";
 
 const server = new ServerApi("http://localhost:3000");
 
 export default function LoadingPage(): JSX.Element {
-  const location = useLocation();
-  const data = location.state; // obtaining data from state parameter specified in navigate() call.
+  // obtaining data from state parameter specified in navigate() call.
+  const data: AnalyzeShapeProps = useLocation().state;
 
   const navigate = useNavigate();
   const [shape, setShape] = useState<string | null>(null);
   useEffect(() => {
     if (shape) {
-      navigate(`/shapes/${shape}`, { replace: true });
+      setTimeout(() => {
+        navigate(`/shapes/${shape}`, { replace: true });
+      }, 2000);
     }
   }, [shape]);
 
